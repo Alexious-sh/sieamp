@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>960661130</fileChecksum>
+  <configuration>
+    <name>ELKA</name>
+    <outputs>
+      <file>$PROJ_DIR$\unpack.c</file>
+      <file>$TOOLKIT_DIR$\INC\cfg_items.h</file>
+      <file>$PROJ_DIR$\ImageUtils.h</file>
+      <file>$PROJ_DIR$\test.xcl</file>
+      <file>$PROJ_DIR$\Skin.c</file>
+      <file>$PROJ_DIR$\config_data.c</file>
+      <file>$PROJ_DIR$\conf_loader.c</file>
+      <file>$PROJ_DIR$\ELKA\Obj\file_works.r79</file>
+      <file>$PROJ_DIR$\func.asm</file>
+      <file>$PROJ_DIR$\ELKA\Obj\func.r79</file>
+      <file>$PROJ_DIR$\ELKA\Obj\gui.r79</file>
+      <file>$PROJ_DIR$\file_works.c</file>
+      <file>$PROJ_DIR$\ELKA\Obj\ImageUtils.r79</file>
+      <file>$PROJ_DIR$\gui.c</file>
+      <file>$PROJ_DIR$\ELKA\Exe\SieAmp.elf</file>
+      <file>$TOOLKIT_DIR$\INC\png.h</file>
+      <file>$TOOLKIT_DIR$\INC\ZLIB.H</file>
+      <file>$TOOLKIT_DIR$\INC\swilib.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\ELKA\Obj\conf_loader.r79</file>
+      <file>$PROJ_DIR$\ELKA\Obj\config_data.r79</file>
+      <file>$TOOLKIT_DIR$\INC\zconf.h</file>
+      <file>$PROJ_DIR$\ELKA\Obj\ImageUtils.pbi</file>
+      <file>$PROJ_DIR$\ELKA\Obj\SieAmp.pbd</file>
+      <file>$TOOLKIT_DIR$\INC\sha.h</file>
+      <file>$PROJ_DIR$\ELKA\Obj\Skin.pbi</file>
+      <file>$PROJ_DIR$\menu_module.h</file>
+      <file>$PROJ_DIR$\ImageUtils.c</file>
+      <file>$TOOLKIT_DIR$\INC\bn.h</file>
+      <file>$TOOLKIT_DIR$\INC\crypto.h</file>
+      <file>$TOOLKIT_DIR$\INC\pngconf.h</file>
+      <file>$PROJ_DIR$\Skin.h</file>
+      <file>$TOOLKIT_DIR$\LIB\dl5tpainl8n.r79</file>
+      <file>$PROJ_DIR$\ELKA\Obj\main.r79</file>
+      <file>$PROJ_DIR$\fmlib.c</file>
+      <file>$PROJ_DIR$\file_works.h</file>
+      <file>$PROJ_DIR$\unpack.h</file>
+      <file>$TOOLKIT_DIR$\INC\rsa.h</file>
+      <file>$PROJ_DIR$\ELKA\Obj\unpack.r79</file>
+      <file>$TOOLKIT_DIR$\INC\md5.h</file>
+      <file>$PROJ_DIR$\ELKA\Obj\gui.pbi</file>
+      <file>$TOOLKIT_DIR$\INC\data_n.h</file>
+      <file>$TOOLKIT_DIR$\INC\obs.h</file>
+      <file>$PROJ_DIR$\ELKA\Obj\Skin.r79</file>
+      <file>$PROJ_DIR$\ELKA\Obj\file_works.pbi</file>
+      <file>$PROJ_DIR$\ELKA\Obj\unpack.pbi</file>
+      <file>$PROJ_DIR$\ELKA\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\ELKA\Obj\conf_loader.pbi</file>
+      <file>$PROJ_DIR$\conf_loader.h</file>
+      <file>$PROJ_DIR$\ELKA\Obj\config_data.pbi</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\unpack.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Skin.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 43</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 31 35 2</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 31 35 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\config_data.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 20</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 1</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\conf_loader.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 19</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 1 48</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 1 48</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\func.asm</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 9</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\file_works.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 7</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 35 31</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 35 31</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\gui.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 40</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 34 26 31 2 36 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 34 26 31 2 36 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\ELKA\Exe\SieAmp.elf</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 3 12 43 19 20 7 9 10 33 38 32</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 33</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 46</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\ELKA\Obj\SieAmp.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 22 25 47 49 44 40 46 45</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\ImageUtils.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 12</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 2</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17 15 16 21 30 37 28 29 24 39 41 42 2</file>
+        </tool>
+      </inputs>
+    </file>
+  </configuration>
+</project>
+
+
