@@ -33,6 +33,39 @@ len-=clen;
 return(total);
 }
 
+const char * const z_errmsg[10] = {
+"need dictionary",     /* Z_NEED_DICT       2  */
+"stream end",          /* Z_STREAM_END      1  */
+"",                    /* Z_OK              0  */
+"file error",          /* Z_ERRNO         (-1) */
+"stream error",        /* Z_STREAM_ERROR  (-2) */
+"data error",          /* Z_DATA_ERROR    (-3) */
+"insufficient memory", /* Z_MEM_ERROR     (-4) */
+"buffer error",        /* Z_BUF_ERROR     (-5) */
+"incompatible version",/* Z_VERSION_ERROR (-6) */
+""};
+
+void Compression_Report_Error(char *when, int code)
+{
+  char q[255];
+
+  LockSched();
+  sprintf(q, "%s error: %s\n", when, z_errmsg[(-code)+2]);
+  MsgBoxError(1, (int)q);
+  UnlockSched();
+}
+
+// Функции-заглушки для ZLib
+void* zcalloc(voidpf unk,size_t nelem, size_t elsize)
+{
+  return (malloc(nelem*elsize));
+}
+
+void zcfree(voidpf unk, void* ptr)
+{
+  mfree(ptr);
+}
+
 // Основная функция распаковки. Параметры:
 // compr - буфер с запакованными zip данными
 // comprLen - его длина
@@ -42,23 +75,26 @@ return(total);
 int unzip(Byte *compr, uLong comprLen, Byte *uncompr, uLong  uncomprLen){
     int err;
     z_stream d_stream;
-    d_stream.zalloc = (alloc_func)0;
-    d_stream.zfree = (free_func)0;
+    d_stream.zalloc = (alloc_func)zcalloc;
+    d_stream.zfree = (free_func)zcfree;
     d_stream.opaque = (voidpf)0;
     d_stream.next_in  = compr;
     d_stream.avail_in = (uInt)comprLen;
     err = inflateInit2(&d_stream,-MAX_WBITS);
-    if(err!=Z_OK){ 
-   unerr:
-      return err;
-    }
     d_stream.next_out = uncompr;
     d_stream.avail_out = (uInt)uncomprLen;
     err = inflate(&d_stream, 2);
-    if(err<0) goto unerr;
+    switch (err) {
+      case Z_NEED_DICT:
+	 //ret = Z_DATA_ERROR;     /* and fall through */
+      case Z_DATA_ERROR:
+      case Z_MEM_ERROR:
+	Compression_Report_Error("Inflating", err);
+	return 0;
+      }
     err = inflateEnd(&d_stream);
-    if(err<0) goto unerr;
-    return 0;
+    if(err<0) return 0;
+    return 1;
 }
 
 int getint(unsigned char *ptr){  // Целое число из 4х байт return(*(long*)ptr низя! пик офф)
@@ -81,7 +117,7 @@ int UnPack(const char* fname, const char* path)
   int packsize=1, unpacksize=2, filenamesize=3;
   unsigned int err;
   char* filename = malloc(256);
-  char *buf, *file = malloc(256);
+  char *buf, *file = malloc(256), *outbuf;
   if((in=fopen(fname,A_ReadOnly+A_BIN,P_READ,&err))!=-1){	// Открыть для чтения
     while(1){
       if(fread(in,file,30,&err)!=30) break;
@@ -92,7 +128,8 @@ int UnPack(const char* fname, const char* path)
       fread(in,file,filenamesize,&err);
       file[filenamesize]=0;
       if(file[filenamesize-1]!='/'){
-        if((buf=(char*)malloc((packsize==unpacksize)?packsize:(packsize+unpacksize)))!=NULL){ // Выделить память
+        if((buf=(char*)malloc(packsize+1))!=NULL){ // Выделить память
+          outbuf = malloc(unpacksize+1);
           fread32(in,buf,packsize,&err);	// Читать
           prepname(file);
           sprintf(filename, "%s%s", path, file);
@@ -100,12 +137,13 @@ int UnPack(const char* fname, const char* path)
             if(packsize==unpacksize){
               fwrite32(out,buf,packsize,&err);	// Писать
             }else{
-              unzip((Byte*)buf,packsize,(Byte*)(buf+packsize),unpacksize);	// Это распаковка!
-              fwrite32(out,buf+packsize,unpacksize,&err);
+              unzip((Byte*)buf,packsize,(Byte*)outbuf,unpacksize);	// Это распаковка!
+              fwrite32(out,outbuf,unpacksize,&err);
             }
             fclose(out,&err);  // Закрыть
           }
           mfree(buf); // Освободить память (обязательно!)
+          mfree(outbuf);
         }
       }
     }
