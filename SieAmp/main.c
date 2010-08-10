@@ -1,12 +1,11 @@
 #include "../inc/swilib.h"
+#include "medialibs\audio.h"
 
 char ELF_PATH[256];
 
-extern int MSG_Report;
 extern void kill_data(void *p, void (*func_p)(void *));
 extern int strcmp_nocase(const char *s, const char *d);
 extern const int MSG_RCONFIG;
-extern void ParseMsg(GBS_MSG *msg);
 
 extern int ShowGUI();
 int ScrW, ScrH;
@@ -42,6 +41,11 @@ int maincsm_onmessage(CSM_RAM *data, GBS_MSG *msg) // Обработчик сообщений нашег
 {
   MAIN_CSM *csm=(MAIN_CSM*)data;
   if ((msg->msg==MSG_GUI_DESTROYED)&&((int)msg->data0==csm->gui_id)) csm->csm.state=-3; // хз что это, но без него никак
+  if (msg->msg==MSG_Report)
+  {
+    ParseMsg(msg);
+    return 0;
+  }
   return(1);
 }
 
@@ -75,11 +79,30 @@ static const struct // Структура нашего CSM
 
 static void UpdateCSMname(void) // Функция, передающая имя эльфа XTask'у
 {
-  wsprintf((WSHDR *)(&MAINCSM.maincsm_name), "Radio");
+  wsprintf((WSHDR *)(&MAINCSM.maincsm_name), "SieAmp");
 }
+
+#ifdef LOG
+void log_elfaddr()
+{
+  extern void *ELF_BEGIN;
+  unsigned int err;
+  const char* log = "4:\\sieamp.log";
+  char* logbuf = malloc(128);
+  sprintf(logbuf, "elfstart = 0x%X", (unsigned int)(&ELF_BEGIN));
+  unlink(log, &err);
+  int f = fopen(log, A_ReadWrite+A_BIN+A_Create+A_Truncate,P_READ+P_WRITE, &err);
+  fwrite(f,logbuf, strlen(logbuf), &err);
+  fclose(f,&err);
+  mfree(logbuf);
+}
+#endif
 
 int main(const char *exename, const char *filename) // Создание всей нашей карусели ;)
 {
+  #ifdef LOG
+  log_elfaddr();
+  #endif
   ScrW=ScreenW();
   ScrH=ScreenH();
   char *path=strrchr(exename,'\\');

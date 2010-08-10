@@ -5,7 +5,7 @@ extern char ELF_PATH[256];
 
 char * getSymbolicPath(const char * cFileName)
 {
-  char* path = malloc(strlen(ELF_PATH)+strlen(cFileName)+1);
+  char* path = malloc(strlen(ELF_PATH)+strlen(cFileName)+2);
   strcpy(path,ELF_PATH);
   strcat(path,cFileName);
   make_dirs(path);
@@ -70,12 +70,48 @@ void getColor(char* src, char* dst)
   dst[3] = 0x64;
 }
 
-int parsePLcfg()
+int char16to8(int c)
+{
+  if (c<0x400) return (c);
+  c-=0x400;
+  if (c<16)
+  {
+    if (c==1) c=0;
+    else if (c==4) c=2;
+    else if (c==6) c=10;
+    else return (c);
+  }
+  else if (c>79)
+  {
+    if (c==0x51) c=16;
+    else if (c==0x54) c=18;
+    else if (c==0x56) c=11;
+    else if (c==0x57) c=23;
+    else return (c);
+  }
+  else c+=8;
+  c+=168;
+  return (c);
+}
+
+void ws16_2str8(WSHDR * ws, char * str, int len)
+{
+  for(int i = NULL; i < len; i++)
+  {
+    int c = ws->wsbody[i + 1];
+    if (c == 10) c = 13;
+    if (i < ws->wsbody[0])
+      str[i] = char16to8(c);
+    else
+      str[i] = NULL;
+  }
+}
+
+int parsePLcfg(char* cfgfile)
 {
   int f, c;
   unsigned int ul;
-  char* path = getSymbolicPath(CFG_Pledit);
-  if ((f=fopen(path,A_ReadOnly,P_READ,&ul))!=-1)
+  if ((f=fopen(cfgfile,A_ReadOnly,P_READ,&ul))!=-1)
   {
     int size_cfg=lseek(f,0,S_END,&ul,&ul);
     lseek(f,0,S_SET,&ul,&ul);
@@ -132,10 +168,8 @@ int parsePLcfg()
   }
   else goto LERROR;
   fclose(f, &ul);
-  mfree(path);
   return(1);
   LERROR:
 	ShowMSG(1,(int)"PLEDIT.txt: Parse error!");
-        mfree(path);
         return(0);
 }

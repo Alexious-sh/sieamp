@@ -23,14 +23,45 @@ extern char *percent_td;
 #define CFG_Pledit        "skins\\img\\pledit.txt"
 #define CFG_Viscolor      "skins\\img\\viscolor.txt"
 
+typedef struct // Структура с координатами скина(после ресайза)
+{
+  int plItemH;
+  int plItemsNum;
+  RECT plTrack;
+  RECT plTime;
+  RECT plFrame;
+  RECT vol;
+  RECT progress;
+  RECT scroll;
+  RECT curtrack;
+  RECT time;
+  RECT kbps;
+  RECT kHz;
+  short monoster[2];
+  short playbutt[2];
+  short prevbutt[2];
+  short pausebutt[2];
+  short stopbutt[2];
+  short nextbutt[2];
+  short shuffle[2];
+  short repeat[2];
+}SKIN_COORDS;
+extern SKIN_COORDS SKIN;
+
+//extern char* skinbuf;
 extern IMGHDR* BG;
+extern IMGHDR* DIGITS;
+extern IMGHDR* STATE;
 
 extern char NormalCOL[4];
 extern char CurrentCOL[4];
 extern char BGCOL[4];
 extern char SelectBG[4];
 
+int isSkinCached();
 int isSkinExist();
+int initCache();
 int prepareSkin();
+void getParams(WSHDR* ws);
 
 #endif /* _SKIN_H_ */

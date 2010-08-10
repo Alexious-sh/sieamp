@@ -58,7 +58,7 @@ void Compression_Report_Error(char *when, int code)
 // Функции-заглушки для ZLib
 void* zcalloc(voidpf unk,size_t nelem, size_t elsize)
 {
-  return (malloc(nelem*elsize));
+  return (malloc(nelem*elsize+1));
 }
 
 void zcfree(voidpf unk, void* ptr)

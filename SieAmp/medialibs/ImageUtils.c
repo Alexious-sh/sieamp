@@ -14,7 +14,7 @@ void insertIMG(IMGHDR* img, IMGHDR* src, short x, short y)
   {
     int pos = x*2 + y*img->w*2;
     int ps = cury*src->w*2;
-    memcpy(&img->bitmap[pos], &src->bitmap[ps], src->w*2);
+    memcpy(img->bitmap+pos, src->bitmap+ps, src->w*2);
     cury++;
     y++;
   }
@@ -34,7 +34,7 @@ IMGHDR* CreateImgHdrByAnyFile (WSHDR * path,short width, short height, int rot, 
   pos= wstrrchr(path,len,'.'); 
   if (!pos) {ShowMSG(1,(int)"Zalupa");goto exit0;}
 
-  ext=AllocWS(len-pos);
+  ext=AllocWS(len-pos+1);
   wstrcpybypos(ext,path,pos+1,len-pos);
   uid=GetExtUid_ws(ext);
   FreeWS(ext);
@@ -72,7 +72,7 @@ IMGHDR* CreateImgHdrByAnyFile (WSHDR * path,short width, short height, int rot, 
   myimg->w=tmpimg->w;
   myimg->h=tmpimg->h;
   myimg->bpnum=tmpimg->bpnum;
-  myimg->bitmap=malloc(msz);
+  myimg->bitmap=malloc(msz+1);
   memcpy(myimg->bitmap,tmpimg->bitmap,msz);
 exit1:
   Obs_DestroyObject(mypicObj);
@@ -87,4 +87,18 @@ void DrwImg(IMGHDR *img, int x, int y)
   StoreXYWHtoRECT(&rc,x,y,img->w,img->h);
   SetPropTo_Obj5(&drwobj,&rc,0,img);
   DrawObject(&drwobj);
+}
+
+void DrwCropImg(IMGHDR *img, int x, int y, int deltx, int delty, int w, int h)
+{
+  RECT rc;
+  DRWOBJ drwobj;
+  StoreXYWHtoRECT(&rc,x,y,w,h);
+  SetProp2ImageOrCanvas(&drwobj,&rc,0,img,deltx,delty);
+  DrawObject(&drwobj);
+}
+
+void DrawDigit(IMGHDR *img, int digit, int x, int y, int w)
+{
+  DrwCropImg(img, x, y, digit*9, 0, w, img->h);
 }

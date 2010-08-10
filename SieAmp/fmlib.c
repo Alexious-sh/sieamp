@@ -30,6 +30,16 @@ extern int Obs_Sound_SetPWM(HObj hObj, int fIsPWM);
 extern int Obs_SetOutput_Uid(HObj hObj, int OutUID);
 extern int Obs_Sound_SetPlayModePartial(HObj hObj, int mode);
 extern int Obs_Sound_SetMute(HObj hObj, int mute);
+extern int Obs_Sound_SetFading(HObj hObj, int fade, int fade_way, int ms, int delta);
+extern int Obs_Sound_SetShockProtection(HObj hObj, int mode);
+
+typedef struct{
+  int bass;
+  int treble;
+  int vis;
+} VIS_FMT;
+
+extern int Obs_Sound_SetVisualisationsParams(HObj hobj, int eMode, int eLink, int DataId, VIS_FMT* cbFormat);
 
 //Recording
 extern int Obs_Sound_SetFIsRecording(HObj hobj, int fIsRecording);
@@ -58,3 +68,15 @@ __swi __arm unsigned int* Ram_Layer_Base_Ptr(void);
 __swi __arm void DrawObject2Layer(unsigned int lcd_ptr, DRWOBJ* drwobj);
 
 extern void TempLightOn();
+
+#pragma swi_number=126
+__swi __arm int rand(int* seed, int max);
+
+#pragma swi_number=0x8248
+__swi __arm char *RamFormatTrack();
+
+#pragma swi_number=0x8249
+__swi __arm char *RamFreq();
+
+#pragma swi_number=0x824A
+__swi __arm char *RamChannel();

@@ -60,6 +60,9 @@ a	EQU	b
         defadr  Obs_SetOutput_Uid,0xA0CCFD44
         defadr  Obs_Sound_SetPlayModePartial,0xA0CC4740
         defadr  Obs_Sound_SetMute,0xA0CC3EB0
+        defadr  Obs_Sound_SetVisualisationsParams,0xA0CC4E10
+        defadr  Obs_Sound_SetShockProtection,0xA0CC3CD8
+        defadr  Obs_Sound_SetFading,0xA0CC39E0
         
 //------------------------------ Запись (OBS) ----------------------------------
         defadr  Obs_Sound_SetBitrate,0xA0CC4EA4
